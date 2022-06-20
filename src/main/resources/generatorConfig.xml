@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+
+        <!--可以自定义生成model的代码注释-->
+        <!--该标签用来配置如何生成注释信息，最多可以配置1个-->
+        <commentGenerator type="com.cbz.learn.mall.tiny.mbg.CommentGenerator">
+            <!-- 是否去除自动生成的注释 -->
+            <property name="suppressAllComments" value="true"/>
+            <!--阻止生成的注释包含时间戳-->
+            <property name="suppressDate" value="true"/>
+            <!--注释是否添加数据库表的备注信息-->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+
+        <!--配置数据库连接-->
+        <!--该标签用于指定MBG要连接的数据库信息，该标签必选，并且只能有一个-->
+        <!--driverClass: 访问数据库的JDBC驱动程序的完全限定类名-->
+        <!--connectionURL: 访问数据库的JDBC连接URL-->
+        <!--userId: 访问数据库的用户ID 也就是用户名-->
+        <!--password: 访问数据库的密码-->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+
+
+        <!--指定生成model的路径-->
+        <!--该标签用来控制生成的实体类。该标签必须配置一个，并且最多配置一个-->
+        <!--targetPackage: 生成实体类存放的包名-->
+        <!--targetProject: 指定目标项目路径，可以使用相对路径或绝对路径-->
+        <javaModelGenerator targetPackage="com.cbz.learn.mall.tiny.mbg.model"
+                            targetProject="E:\Program\JavaWeb\cbz-learn-mall\src\main\java"/>
+
+
+        <!--指定生成mapper.xml的路径-->
+        <!--该标签用于配置SQL映射生成器(Mapper.xml文件)的属性，该标签可选，最多配置一个-->
+        <!--targetPackage: 生成SQL映射文件存放的包名 -->
+        <!--targetProject: 指定目标项目路径，可以使用相对路径或绝对路径-->
+        <sqlMapGenerator targetPackage="com.cbz.learn.mall.tiny.mbg.mapper" targetProject="E:\Program\JavaWeb\cbz-learn-mall\src\main\resources"/>
+
+
+        <!--指定生成mapper接口的的路径-->
+        <!--该标签用于生成Mapper接口，该标签可选，最多配置一个-->
+        <!--targetPackage: 生成Mapper接口存放的包名-->
+        <!--targetProject: 指定目标项目路径，可以使用相对路径或绝对路径-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cbz.learn.mall.tiny.mbg.mapper"
+                             targetProject="E:\Program\JavaWeb\cbz-learn-mall\src\main\java"/>
+
+
+        <!--该标签用于配置需要通过内联数据库的表，只有在table中配置过的表，才能经过上述其他配置生成最终的代码，该标签最少配置一个-->
+        <!--如果要生成全部表, tableName设为% -->
+        <!-- <table tableName="%"></table> -->
+        <table tableName="pms_brand">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
